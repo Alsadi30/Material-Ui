@@ -1,26 +1,40 @@
-import React from 'react'
-import {makeStyles} from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
+import React,{useState} from 'react'
+import {Typography,Button,Paper,Switch} from '@material-ui/core'
+
 // import DeleteIcon from '@material-ui/icons/Delete';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import {  orange } from '@material-ui/core/colors';
 
 
-const useStyles = makeStyles({
-   buttonStyle : props => ({
-       color : props.bool? 'Yello':'Red',
-       background:props.bool?'Grey':'blue' ,
-       fontSize:20
-   })
-})
 
-function MakeStyles(props) {
-    const classes = useStyles(props)
-    console.log(props)
-    return (
-        <div>
-            <Button variant="outlined" color="secondary" >Red </Button>
-            <Button className={classes.buttonStyle} onClick={props.handleClick} > MakeStyles Button </Button>
-        </div>
-    )
+
+
+function MakeStyles() {
+ 
+const [dark,setMode] =  useState(true)
+const outerTheme = createMuiTheme({
+    palette: {
+      secondary: {
+        main: orange[500],
+      },
+      primary:{
+          main:orange[900]
+      },
+      type:dark?'dark':'light'
+
+    },
+  });
+
+  return (
+    <ThemeProvider theme={outerTheme}>
+        <Paper elevation={10}>
+
+        <Button  variant='contained' color={'secondary'} > Button</Button>
+         <Switch checked={dark}  onClick={()=>setMode(!dark)} />
+    <Typography variant="h3" color={'primary'} align={'center'}>Learning Typography of material ui</Typography>
+    </Paper>
+    </ThemeProvider> 
+  )
 }
 
 export default MakeStyles
